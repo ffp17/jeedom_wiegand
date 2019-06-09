@@ -84,7 +84,7 @@ if (!is_object($elogicReader)) {
     $pinlimit = intval($elogicReader->getConfiguration('pintrylimit','1'));
     $timebloc = intval($elogicReader->getConfiguration('retrytimer','1'));
 
-    if (( $tagcounter >= $taglimit ) | ( $pincounter >= $pinlimit ) | ($tagtrylimit != 1))
+    if (( $tagcounter >= $taglimit ) | ( $pincounter >= $pinlimit ))
     {
         $latsuse = new DateTime($elogicReader->getConfiguration('lastuse',$datetime));
         $now = new DateTime("now");
@@ -116,8 +116,8 @@ if($cmd == "tag")
 
     if (!is_object($elogic)) {
         
-        $taglimit = intval($elogicReader->getConfiguration('tagtrylimit');
-        if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) | ($taglimit != 1)) {
+    
+        if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) | (config::byKey('tagtrylimit', 'jwiegand') != 1)) {
             // Gestion des tags inconnus
             log::add('jwiegand', 'error', 'Badge : '.$value.' inconnu présenté sur le lecteur :'.$readername);
         
