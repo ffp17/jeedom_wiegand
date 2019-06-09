@@ -8,8 +8,8 @@
   "category": "security",
   "display": "panel",
   "mobile": "panel",
-  "changelog": "https://github.com/ffp17/jeedom_wiegand/#language#/changelog",
-  "documentation": "https://github.com/ffp17/jeedom_wiegand/#language#/",
+  "changelog": "https://github.com/ffp17/jwiegand/#language#/changelog",
+  "documentation": "https://github.com/ffp17/jwiegand/#language#/",
   "language": [ "fr_FR", "en_US", "de_DE", "sp_SP", "ru_RU", "id_ID", "it_IT" ],
   "compatibility": [ "miniplus", "smart", "rpi", "docker", "diy", "mobile" ]
 }
