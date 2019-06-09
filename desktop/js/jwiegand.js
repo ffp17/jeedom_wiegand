@@ -64,7 +64,7 @@ $('.startIncludeState').on('click', function () {
 function changeIncludeState(_state) {
     $.ajax({// fonction permettant de faire de l'ajax
         type: "POST", // methode de transmission des données au fichier php
-        url: "plugins/badger/core/ajax/badger.ajax.php", // url du fichier php
+        url: "plugins/jwiegand/core/ajax/jwiegand.ajax.php", // url du fichier php
         data: {
             action: "changeIncludeState",
             state: _state,
