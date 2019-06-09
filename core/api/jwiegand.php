@@ -111,7 +111,7 @@ if($cmd == "tag")
     $elogic = jwiegand::byLogicalId($badgeid, 'badger');
     $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
-    $cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
+    $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
     $cmd->event($value);
     $cmd->evnet($datetime);
 
@@ -134,7 +134,7 @@ if($cmd == "tag")
             {
                 //$elogicReader->setIsEnable(false);
                 //$elogicReader->save();
-                $cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'TagTryLimit');
+                $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'TagTryLimit');
                 if (!is_object( $cmd )){
                     log::add('badger', 'error', 'Reader : '.$elogicReader->getName().' commande TagTryLimit introuvable.');
                     return false;
@@ -175,14 +175,14 @@ if($cmd == "tag")
             $elogicReader->save();
         }
 
-        $cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'BadgerID');
+        $cmd = jwiegandCmd::byEqLogicIdCmdName($elogic->getId(),'BadgerID');
         if (!is_object( $cmd )){
             log::add('badger', 'error', 'Badge : '.$elogic->getName().' commande BadgerID introuvable.');
             return false;
         }
         $cmd->event($readername);   
 
-        $cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'Presentation');
+        $cmd = jwiegandCmd::byEqLogicIdCmdName($elogic->getId(),'Presentation');
         if (!is_object( $cmd )){
             log::add('badger', 'error', 'Badge : '.$elogic->getName().' commande Presentation introuvable.');
             return false;

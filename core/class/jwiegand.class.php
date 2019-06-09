@@ -39,7 +39,7 @@ class jwiegand extends eqLogic {
         $this->setConfiguration('type','code');
 
         $nbcode = 0;
-        foreach (badger::byType('badger') as $reader) {
+        foreach (jwiegand::byType('badger') as $reader) {
         if ($reader->getConfiguration('type') == 'code') 
             $nbcode++;  
         }
@@ -58,21 +58,21 @@ class jwiegand extends eqLogic {
     */
         if (($this->getConfiguration('type')=='badge')|($this->getConfiguration('type')=='code'))
         {   
-             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'Presentation');
+             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'Presentation');
             if (!is_object($cmd))
                 $this->createCmdinfo('Presentation',$this->getId(),'Presentation'); 
     
-             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgerID');
+             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgerID');
             if (!is_object($cmd))
                 $this->createCmdinfo('BadgerID',$this->getId(),'BadgerID'); 
         }
 
         if ($this->getConfiguration('type')=='code')
         {   
-             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'ChangePin');
+             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'ChangePin');
             if (!is_object($cmd))
                 $this->createCmdmessage('ChangePin',$this->getId(),'ChangePin');    
-             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'GetPin');
+             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'GetPin');
             if (!is_object($cmd))
                 $this->createCmdinfo('GetPin',$this->getId(),'GetPin'); 
             /*
@@ -82,16 +82,16 @@ class jwiegand extends eqLogic {
 
         if ($this->getConfiguration('type')=='reader')
         {
-            $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'TagTryLimit');
+            $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'TagTryLimit');
             if (!is_object($cmd))
                 $this->createCmdinfo('TagTryLimit',$this->getId(),'TagTryLimit');   
 
-            $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'IDBadge');
+            $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'IDBadge');
             if (!is_object($cmd))
                 $this->createCmdinfo('IDBadge',$this->getId(),'IDBadge');   
 
             if ($this->getConfiguration('modelReader','')=='wiegand2' ){
-                 $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'PinTryLimit');
+                 $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'PinTryLimit');
                 if (!is_object($cmd))
                     $this->createCmdinfo('PinTryLimit',$this->getId(),'PinTryLimit');               
             }
@@ -123,7 +123,7 @@ class jwiegand extends eqLogic {
     }   
     
     public function updatePin($pincode){
-            $cmd = badgerCmd::byEqLogicIdCmdName($this->getId(),'GetPin');
+            $cmd = jwiegandCmd::byEqLogicIdCmdName($this->getId(),'GetPin');
             if (!is_object( $cmd )){
                 log::add('badger', 'error', 'Code : '.$this->getName().' commande GetPin introuvable.');
                 return;
@@ -136,7 +136,7 @@ class jwiegand extends eqLogic {
     public function preRemove() {
 
         // delete all cmds
-        foreach (badgerCmd::byEqLogicId($this->getId())  as $cmd) {
+        foreach (jwiegandCmd::byEqLogicId($this->getId())  as $cmd) {
             $cmd->remove();
         }   
 
@@ -145,7 +145,7 @@ class jwiegand extends eqLogic {
         
     public function createCmdinfo($cmdname,$eqlogic,$cmdlogic) {
         
-        $cmd = new badgerCmd();
+        $cmd = new jwiegandCmd();
         $cmd->setLogicalId($cmdlogic);
         $cmd->setName($cmdname);
         $cmd->setTemplate('dashboard', 'tile');
@@ -158,7 +158,7 @@ class jwiegand extends eqLogic {
 
     public function createCmdmessage($cmdname,$eqlogic,$cmdlogic) {
         
-        $cmd = new badgerCmd();
+        $cmd = new jwiegandCmd();
         $cmd->setLogicalId($cmdlogic);
         $cmd->setName($cmdname);
         $cmd->setTemplate('dashboard', 'tile');
