@@ -43,7 +43,7 @@ if($cmd == "test")
 $elogicReader = jwiegand::byLogicalId($readerid, 'jwiegand');
 if (!is_object($elogicReader)) {
 
-    if (config::byKey('allowAllinclusion', 'jwiegand') != 1) {
+    if (config::byKey('allowAllinclusion', 'jwiegand') != 1) | ($elogicReader->getConfiguration('tagtrylimit') != 0) {
         // Gestion des lecteurs inconnus
         log::add('jwiegand', 'error', 'Lecteur inconnu detecté : '.$readerid);
         return true;
@@ -84,7 +84,7 @@ if (!is_object($elogicReader)) {
     $pinlimit = intval($elogicReader->getConfiguration('pintrylimit','1'));
     $timebloc = intval($elogicReader->getConfiguration('retrytimer','1'));
 
-    if (( $tagcounter >= $taglimit ) | ( $pincounter >= $pinlimit ))
+    if (( $tagcounter >= $taglimit ) | ( $pincounter >= $pinlimit ) | ($tagtrylimit != 0))
     {
         $latsuse = new DateTime($elogicReader->getConfiguration('lastuse',$datetime));
         $now = new DateTime("now");
