@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<info>
+    <id>jwiegand</id>
+    <name>Jwiegand</name>
+    <description>Plugin de lecteur wiegand</description>
+    <icon>fa fa-pie-chart</icon>
+    <licence>AGPL</licence>
+    <author>FP</author>
+    <installation>Aucune</installation>
+    <require>2.0</require>
+    <category>security</category>
+</info>
