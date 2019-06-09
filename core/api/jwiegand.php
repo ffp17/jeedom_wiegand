@@ -42,8 +42,8 @@ if($cmd == "test")
 
 $elogicReader = jwiegand::byLogicalId($readerid, 'jwiegand');
 if (!is_object($elogicReader)) {
-    $taglimit = intval($elogicReader->getConfiguration('tagtrylimit'));
-    if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) | ($taglimit != 0)) {
+
+    if (config::byKey('allowAllinclusion', 'jwiegand') != 1) {
         // Gestion des lecteurs inconnus
         log::add('jwiegand', 'error', 'Lecteur inconnu detecté : '.$readerid);
         return true;
@@ -117,7 +117,7 @@ if($cmd == "tag")
     if (!is_object($elogic)) {
         
     
-        if (config::byKey('allowAllinclusion', 'jwiegand') != 1) {
+        if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) | ($taglimit != 0)) {
             // Gestion des tags inconnus
             log::add('jwiegand', 'error', 'Badge : '.$value.' inconnu présenté sur le lecteur :'.$readername);
         
