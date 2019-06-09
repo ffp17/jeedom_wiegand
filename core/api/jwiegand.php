@@ -113,7 +113,6 @@ if($cmd == "tag")
     $elogicReader->save();
     $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
     $cmd->event($value);
-    $cmd->evnet($datetime);
 
     if (!is_object($elogic)) {
         
