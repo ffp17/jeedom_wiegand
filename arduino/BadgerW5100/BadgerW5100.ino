@@ -5,7 +5,7 @@
 // reader and Jeedom settings
 
 // Jeedom server IP
-IPAddress server(192,168,0,39);
+IPAddress server(192,168,10,175);
 // Number of reader in networks ( 0 to 255 )
 #define READER_NUMBER 2
 
