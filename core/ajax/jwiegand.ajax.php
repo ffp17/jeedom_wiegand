@@ -27,7 +27,7 @@ try {
 
 	if (init('action') == 'changeIncludeState') {
 
-		config::save('allowAllinclusion', init('state'),'badger');
+		config::save('allowAllinclusion', init('state'),'jwiegand');
 		ajax::success();
 	}
 

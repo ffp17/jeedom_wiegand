@@ -77,7 +77,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 
 	  <?php
-	if (config::byKey('allowAllinclusion', 'badger', 0) == 0) 
+	if (config::byKey('allowAllinclusion', 'jwiegand', 0) == 0) 
 		echo '<div class="cursor startIncludeState include card" data-state="1" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	else 
 		echo '<div class="cursor startIncludeState include card" data-state="1" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;display: none;" >';
@@ -91,7 +91,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
   <?php
 
-	if (config::byKey('allowAllinclusion', 'badger', 0) == 1) 
+	if (config::byKey('allowAllinclusion', 'jwiegand', 0) == 1) 
 		echo '<div class="cursor stopIncludeState include card" data-state="0" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	else 
 		echo '<div class="cursor stopIncludeState include card" data-state="0" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;display: none;" >';

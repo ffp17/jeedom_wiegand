@@ -39,7 +39,7 @@ class jwiegand extends eqLogic {
         $this->setConfiguration('type','code');
 
         $nbcode = 0;
-        foreach (jwiegand::byType('badger') as $reader) {
+        foreach (jwiegand::byType('jwiegand') as $reader) {
         if ($reader->getConfiguration('type') == 'code') 
             $nbcode++;  
         }
@@ -125,7 +125,7 @@ class jwiegand extends eqLogic {
     public function updatePin($pincode){
             $cmd = jwiegandCmd::byEqLogicIdCmdName($this->getId(),'GetPin');
             if (!is_object( $cmd )){
-                log::add('badger', 'error', 'Code : '.$this->getName().' commande GetPin introuvable.');
+                log::add('jwiegand', 'error', 'Code : '.$this->getName().' commande GetPin introuvable.');
                 return;
             }           
             $cmd->setCollectDate($datetime);
@@ -172,7 +172,7 @@ class jwiegand extends eqLogic {
     /*     * **********************Getteur Setteur*************************** */
 }
 
-class badgerCmd extends cmd {
+class jwiegandCmd extends cmd {
     /*     * *************************Attributs****************************** */
 
     /*     * ***********************Methode static*************************** */
