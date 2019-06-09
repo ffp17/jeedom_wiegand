@@ -144,16 +144,18 @@ if($cmd == "tag")
             return true;
         }
 
-        // Ajout du badge si il n'existe pas et include actif
-        $elogic = new jwiegand();
-        $elogic->setEqType_name('jwiegand');
-        $elogic->setLogicalId($badgeid);
-        $elogic->setName($badgeid);
-        $elogic->setConfiguration('modelTag','Tag RFID');
-        $elogic->setConfiguration('type','badge');
-        $elogic->setConfiguration('value',$value);
-        $elogic->setCategory('security', 1);        
-        $elogic->save();
+        if (config::byKey('allowAllinclusion', 'jwiegand') == 1) {
+            // Ajout du badge si il n'existe pas et include actif
+            $elogic = new jwiegand();
+            $elogic->setEqType_name('jwiegand');
+            $elogic->setLogicalId($badgeid);
+            $elogic->setName($badgeid);
+            $elogic->setConfiguration('modelTag','Tag RFID');
+            $elogic->setConfiguration('type','badge');
+            $elogic->setConfiguration('value',$value);
+            $elogic->setCategory('security', 1);        
+            $elogic->save();
+        }
 
         return true;
     }
