@@ -19,7 +19,7 @@
 /* * ***************************Includes********************************* */
 require_once dirname(__FILE__) . '/../../../../core/php/core.inc.php';
 
-class jwiegand extends eqLogic {
+class badger extends eqLogic {
     /*     * *************************Attributs****************************** */
 
     /*     * ***********************Methode static*************************** */
@@ -39,7 +39,7 @@ class jwiegand extends eqLogic {
         $this->setConfiguration('type','code');
 
         $nbcode = 0;
-        foreach (jwiegand::byType('jwiegand') as $reader) {
+        foreach (badger::byType('badger') as $reader) {
         if ($reader->getConfiguration('type') == 'code') 
             $nbcode++;  
         }
@@ -56,7 +56,7 @@ class jwiegand extends eqLogic {
             $cmd->remove();
         }   
     */
-        if ($this->getConfiguration('type')=='badge')
+        if (($this->getConfiguration('type')=='badge')|($this->getConfiguration('type')=='code'))
         {   
              $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'Presentation');
             if (!is_object($cmd))
@@ -65,6 +65,19 @@ class jwiegand extends eqLogic {
              $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgerID');
             if (!is_object($cmd))
                 $this->createCmdinfo('BadgerID',$this->getId(),'BadgerID'); 
+        }
+
+        if ($this->getConfiguration('type')=='code')
+        {   
+             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'ChangePin');
+            if (!is_object($cmd))
+                $this->createCmdmessage('ChangePin',$this->getId(),'ChangePin');    
+             $cmd = badgerCmd::byEqLogicIdAndLogicalId($this->getId(),'GetPin');
+            if (!is_object($cmd))
+                $this->createCmdinfo('GetPin',$this->getId(),'GetPin'); 
+            /*
+            http://xxxxx/core/api/jeeApi.php?apikey=xxxxxx&type=cmd&id=427&title=set&message=1234
+            */
         }
 
         if ($this->getConfiguration('type')=='reader')
