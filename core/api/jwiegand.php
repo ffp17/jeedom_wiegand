@@ -117,7 +117,7 @@ if($cmd == "tag")
     if (!is_object($elogic)) {
         
         $taglimit = $elogicReader->getConfiguration('tagtrylimit');
-        if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) || ($taglimit != 'N')) {
+        if ((config::byKey('allowAllinclusion', 'jwiegand') != 1) and ($taglimit != 'N')) {
             // Gestion des tags inconnus
             log::add('jwiegand', 'error', 'Badge : '.$value.' inconnu présenté sur le lecteur : '.$readername);
         
