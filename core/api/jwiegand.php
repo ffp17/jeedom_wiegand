@@ -31,7 +31,7 @@ $name = init('name');
 
 $readerid = $name;
 
-//  /plugins/badger/core/api/jeebadger.php?apikey=...&name=BADGER1&ip=192.168.0.177&model=wiegand1&cmd=tag&value=70605040
+//  /plugins/jwiegand/core/api/jwiegand.php?apikey=...&name=BADGER1&ip=192.168.0.177&model=wiegand1&cmd=tag&value=70605040
 $datetime = date('Y-m-d H:i:s');
 
 if($cmd == "test")
@@ -113,7 +113,84 @@ if($cmd == "tag")
     $elogicReader->save();
     $cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
     $cmd->event($value);
-    $cmd->evnet($datetime); 
+    $cmd->evnet($datetime);
+
+    if (!is_object($elogic)) {
+        
+    
+        if (config::byKey('allowAllinclusion', 'badger') != 1) {
+            // Gestion des tags inconnus
+            log::add('badger', 'error', 'Badge : '.$value.' inconnu présenté sur le lecteur :'.$readername);
+        
+            $tagcounter = intval($elogicReader->getConfiguration('tagcount','0'));
+            $tagcounter++;
+
+            $elogicReader->setConfiguration('tagcount',strval($tagcounter));
+            $elogicReader->setConfiguration('lastuse',$datetime);
+            $elogicReader->save();
+
+            $taglimit = intval($elogicReader->getConfiguration('tagtrylimit','0'));
+            if ( $tagcounter >= $taglimit )
+            {
+                //$elogicReader->setIsEnable(false);
+                //$elogicReader->save();
+                $cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'TagTryLimit');
+                if (!is_object( $cmd )){
+                    log::add('badger', 'error', 'Reader : '.$elogicReader->getName().' commande TagTryLimit introuvable.');
+                    return false;
+                }
+                $cmd->event($datetime); 
+            }
+
+
+            return true;
+        }
+
+        // Ajout du badge si il n'existe pas et include actif
+        $elogic = new badger();
+        $elogic->setEqType_name('badger');
+        $elogic->setLogicalId($badgeid);
+        $elogic->setName($badgeid);
+        $elogic->setConfiguration('modelTag','Tag RFID');
+        $elogic->setConfiguration('type','badge');
+        $elogic->setConfiguration('value',$value);
+        $elogic->setCategory('security', 1);        
+        $elogic->save();
+
+        return true;
+    }
+    else  
+    {
+        // le badge existe process des commandes
+    // Test si badge desactivé
+    if ( $elogic->getIsEnable()==false )
+        return true;
+        
+        log::add('badger', 'info', 'Badge :'.$elogic->getName().' présenté sur le lecteur : '.$readername);
+        
+        // reset compteur code faux
+        if ($elogicReader->getConfiguration('tagcount','0')!='0' )
+        {
+            $elogicReader->setConfiguration('tagcount','0');
+            $elogicReader->save();
+        }
+
+        $cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'BadgerID');
+        if (!is_object( $cmd )){
+            log::add('badger', 'error', 'Badge : '.$elogic->getName().' commande BadgerID introuvable.');
+            return false;
+        }
+        $cmd->event($readername);   
+
+        $cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'Presentation');
+        if (!is_object( $cmd )){
+            log::add('badger', 'error', 'Badge : '.$elogic->getName().' commande Presentation introuvable.');
+            return false;
+        }           
+        $cmd->setCollectDate($datetime);
+        $cmd->event($datetime.' - '.$readername);               
+
+    }   
 }
 
 return true;
