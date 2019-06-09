@@ -36,20 +36,20 @@ $datetime = date('Y-m-d H:i:s');
 
 if($cmd == "test")
 {
-    log::add('jwiegand', 'info', 'Command TEST ');
+    log::add('badger', 'info', 'Command TEST ');
     return true;
 }
 
-$elogicReader = jwiegand::byLogicalId($readerid, 'badger');
+$elogicReader = badger::byLogicalId($readerid, 'badger');
 if (!is_object($elogicReader)) {
 
     if (config::byKey('allowAllinclusion', 'badger') != 1) {
         // Gestion des lecteurs inconnus
-        log::add('jwiegand', 'error', 'Lecteur inconnu detecté : '.$readerid);
+        log::add('badger', 'error', 'Lecteur inconnu detecté : '.$readerid);
         return true;
     }
     // Ajout du lecteur de badge si il n'existe pas et discover actif
-    $elogicReader = new jwiegand();
+    $elogicReader = new badger();
     $elogicReader->setEqType_name('badger');
     $elogicReader->setLogicalId($readerid);
     $elogicReader->setName($name);
@@ -108,7 +108,7 @@ if($cmd == "tag")
     $badgeid = "BADGE ".$value;
 
     // Badge Présenté au lecteurs , ajout de ce badge si il n'existe pas et include actif
-    $elogic = jwiegand::byLogicalId($badgeid, 'badger');
+    $elogic = badger::byLogicalId($badgeid, 'badger');
     $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
     $cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
@@ -147,7 +147,7 @@ if($cmd == "tag")
         }
 
         // Ajout du badge si il n'existe pas et include actif
-        $elogic = new jwiegand();
+        $elogic = new badger();
         $elogic->setEqType_name('badger');
         $elogic->setLogicalId($badgeid);
         $elogic->setName($badgeid);

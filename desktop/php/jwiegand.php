@@ -345,5 +345,5 @@ $eqLogics = eqLogic::byType($plugin->getId());
 </div>
 
 
-<?php include_file('desktop', 'jwiegand', 'js', 'jwiegand');?>
+<?php include_file('desktop', 'jwiegand', 'js', 'badger');?>
 <?php include_file('core', 'plugin.template', 'js');?>
