@@ -39,7 +39,7 @@ class jwiegand extends eqLogic {
         $this->setConfiguration('type','code');
 
         $nbcode = 0;
-        foreach (jwiegand::byType('badger') as $reader) {
+        foreach (jwiegand::byType('jwiegand') as $reader) {
         if ($reader->getConfiguration('type') == 'code') 
             $nbcode++;  
         }
