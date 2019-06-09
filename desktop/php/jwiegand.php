@@ -3,7 +3,7 @@ if (!isConnect('admin')) {
 	throw new Exception('{{401 - Accès non autorisé}}');
 }
 
-$plugin = plugin::byId('badger');
+$plugin = plugin::byId('jwiegand');
 sendVarToJS('eqType', $plugin->getId());
 $eqLogics = eqLogic::byType($plugin->getId());
 
@@ -16,10 +16,10 @@ $eqLogics = eqLogic::byType($plugin->getId());
 	<div class="col-lg-2 col-md-3 col-sm-4">
 		<div class="bs-sidebar">
 			<ul id="ul_eqLogic" class="nav nav-list bs-sidenav">
-				<a class="btn btn-warning " style="width : 100%;margin-top : 5px;margin-bottom: 5px;" href="/index.php?v=d&p=plugin&id=badger">
+				<a class="btn btn-warning " style="width : 100%;margin-top : 5px;margin-bottom: 5px;" href="/index.php?v=d&p=plugin&id=jwiegand">
 					<i class="fa fa-cogs"></i> {{Configuration du plugin}} 
 				</a>   
-				<a class="btn btn-warning " style="width : 100%;margin-top : 5px;margin-bottom: 5px;" href="/index.php?v=d&p=log&logfile=badger">
+				<a class="btn btn-warning " style="width : 100%;margin-top : 5px;margin-bottom: 5px;" href="/index.php?v=d&p=log&logfile=jwiegand">
 					<i class="fa fa-comment"></i> {{Logs du plugin}} 
 				</a> 	  
 				<li class="filter" style="margin-bottom: 5px;"><input class="filter form-control input-sm" placeholder="{{Rechercher}}" style="width: 100%"/></li>
@@ -35,7 +35,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<legend><i class="fa fa-cog"></i> {{Badges}}</legend>
 				<?php
 						foreach ($eqLogics as $eqLogic) {
-						if ( $eqLogic->getConfiguration('type') == 'badge'  ){
+						if ( $eqLogic->getConfiguration('type') == 'jwiegand'  ){
 							$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 							echo '<li class="cursor li_eqLogic" data-eqLogic_id="' . $eqLogic->getId() . '" style="' . $opacity . '"><a>' . $eqLogic->getHumanName(true) . '</a></li>';
 							}
@@ -67,7 +67,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 				<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;color:#00979C"><center>{{Configuration}}</center></span>
 			</div>		
 			<div class="cursor eqLogicAction" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;">
-				<a target="_blank" style="text-decoration: none!important;" href="https://github.com/rmesnard/JeedomBadger/blob/master/doc/fr_FR/index.asciidoc">
+				<a target="_blank" style="text-decoration: none!important;" href="https://github.com/ffp17/jeedom-wiegand/blob/master/doc/fr_FR/index.asciidoc">
 					<center>
 						<i class="fa fa-book" style="font-size : 6em;color:#00979C;"></i>
 					</center> 
@@ -77,7 +77,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
 
 	  <?php
-	if (config::byKey('allowAllinclusion', 'badger', 0) == 0) 
+	if (config::byKey('allowAllinclusion', 'jwiegand', 0) == 0) 
 		echo '<div class="cursor startIncludeState include card" data-state="1" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	else 
 		echo '<div class="cursor startIncludeState include card" data-state="1" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;display: none;" >';
@@ -91,7 +91,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 
   <?php
 
-	if (config::byKey('allowAllinclusion', 'badger', 0) == 1) 
+	if (config::byKey('allowAllinclusion', 'jwiegand', 0) == 1) 
 		echo '<div class="cursor stopIncludeState include card" data-state="0" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;" >';
 	else 
 		echo '<div class="cursor stopIncludeState include card" data-state="0" style="background-color : #ffffff; height : 140px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;display: none;" >';
@@ -117,9 +117,9 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 						echo "<center>";
 						if ( $eqLogic->getConfiguration('modelReader') == 'wiegand1'  )
-							echo '<img src="plugins/badger/doc/images/wiegand1.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/wiegand1.png" height="105" width="95" />';
 						else
-							echo '<img src="plugins/badger/doc/images/wiegand2.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/wiegand2.png" height="105" width="95" />';
 						echo "</center>";
 						echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 						echo '</div>';
@@ -133,24 +133,24 @@ $eqLogics = eqLogic::byType($plugin->getId());
 			<?php
 				foreach ($eqLogics as $eqLogic) {
 
-				if ( $eqLogic->getConfiguration('type') == 'badge'  ){
+				if ( $eqLogic->getConfiguration('type') == 'jwiegand'  ){
 						$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 						echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 						echo "<center>";
 						if ( $eqLogic->getConfiguration('modelTag') == 'Tag RFID'  )
-							echo '<img src="plugins/badger/doc/images/badge1.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge1.png" height="105" width="95" />';
 						elseif (( $eqLogic->getConfiguration('modelTag') == 'Carte RFID'  ) | ( $eqLogic->getConfiguration('modelTag') == 'Carte NFC'  ) ) 
-							echo '<img src="plugins/badger/doc/images/badge2.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge2.png" height="105" width="95" />';
 						elseif ( $eqLogic->getConfiguration('modelTag') == 'Tag NFC'  ) 
-							echo '<img src="plugins/badger/doc/images/badge3.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge3.png" height="105" width="95" />';
 						elseif ( $eqLogic->getConfiguration('modelTag') == 'Sticker'  )
-							echo '<img src="plugins/badger/doc/images/badge4.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge4.png" height="105" width="95" />';
 						elseif ( $eqLogic->getConfiguration('modelTag') == 'Mobile'  )
-							echo '<img src="plugins/badger/doc/images/badge5.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge5.png" height="105" width="95" />';
 						elseif ( $eqLogic->getConfiguration('modelTag') == 'Bague NFC'  )
-							echo '<img src="plugins/badger/doc/images/badge6.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge6.png" height="105" width="95" />';
 						else
-							echo '<img src="plugins/badger/doc/images/badge1.png" height="105" width="95" />';
+							echo '<img src="plugins/jwiegand/doc/images/badge1.png" height="105" width="95" />';
 
 						echo "</center>";
 						echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
@@ -175,7 +175,7 @@ $eqLogics = eqLogic::byType($plugin->getId());
 						$opacity = ($eqLogic->getIsEnable()) ? '' : jeedom::getConfiguration('eqLogic:style:noactive');
 						echo '<div class="eqLogicDisplayCard cursor" data-eqLogic_id="' . $eqLogic->getId() . '" style="background-color : #ffffff; height : 200px;margin-bottom : 10px;padding : 5px;border-radius: 2px;width : 160px;margin-left : 10px;' . $opacity . '" >';
 						echo "<center>";
-						echo '<img src="plugins/badger/doc/images/code.png" height="105" width="95" />';
+						echo '<img src="plugins/jwiegand/doc/images/code.png" height="105" width="95" />';
 						echo "</center>";
 						echo '<span style="font-size : 1.1em;position:relative; top : 15px;word-break: break-all;white-space: pre-wrap;word-wrap: break-word;"><center>' . $eqLogic->getHumanName(true, true) . '</center></span>';
 						echo '</div>';
@@ -345,5 +345,5 @@ $eqLogics = eqLogic::byType($plugin->getId());
 </div>
 
 
-<?php include_file('desktop', 'badger', 'js', 'badger');?>
+<?php include_file('desktop', 'jwiegand', 'js', 'jwiegand');?>
 <?php include_file('core', 'plugin.template', 'js');?>
