@@ -14,9 +14,13 @@ IPAddress server(192,168,10,175);
 //wiring  green D0 - 2
 //        white D1 - 3
 
-
+// arduino static IP
 static byte mymac[] = { 0x42,0x41,0x44,0x47,0x45,0x00 };
-
+//static byte mymac[] = { 0xDE,0xAD,0xBE,0xEF,0xFE,0x00 };  
+IPAddress ip(192,168,10,47);
+IPAddress subnet(255,255,255,0);
+IPAddress gateway(192,168,10,1);
+IPAddress dnServer(192,168,10,52);
 
 WIEGAND wg;
 String Code;
@@ -29,7 +33,7 @@ static void sendtoJeedom (char * cmd,char * value) {
   if (client.connect(server, 80)) {
     // Make a HTTP request:
 
-   client.print(F("GET /plugins/badger/core/api/jeebadger.php?name=BADGER"));
+    client.print(F("GET /plugins/badger/core/api/jeebadger.php?name=BADGER"));
     client.print(mymac[5],DEC);
     client.print(F("&ip="));
     client.print(Ethernet.localIP()[0],DEC);
@@ -76,15 +80,16 @@ void setup () {
 
   // give the ethernet module time to boot up:
   delay(1000);
-  Serial.println("Start");
-    
-  mymac[5] =  READER_NUMBER;
+  //Serial.println("Start");
+  
+  //mymac[5] =  READER_NUMBER;
 
-  if (Ethernet.begin(mymac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
-  }
+  //if (Ethernet.begin(mymac) == 0) {
+  //  Serial.println("Failed to configure Ethernet using DHCP");
+  //}
   
   // print the Ethernet board/shield's IP address:
+  Ethernet.begin(mymac, ip, dnServer, gateway, subnet);
   Serial.print("My IP address: ");
   Serial.println(Ethernet.localIP());
   
