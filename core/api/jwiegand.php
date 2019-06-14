@@ -127,9 +127,7 @@ if($cmd == "tag")
             $elogicReader->setConfiguration('tagcount',strval($tagcounter));
             $elogicReader->setConfiguration('lastuse',$datetime);
             $elogicReader->save();
-        
-            $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
-        
+
             $taglimit = intval($elogicReader->getConfiguration('tagtrylimit','0'));
             if ( $tagcounter >= $taglimit )
             {
@@ -141,6 +139,7 @@ if($cmd == "tag")
                     return false;
                 }
                 $cmd->event($datetime);
+                $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
                 $cmd->event($value);
             
             }
