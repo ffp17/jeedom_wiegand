@@ -109,9 +109,9 @@ if($cmd == "tag")
 
     // Badge Présenté au lecteurs , ajout de ce badge si il n'existe pas et include actif
     $elogic = jwiegand::byLogicalId($badgeid, 'jwiegand');
-    $elogicReader->setConfiguration('BadgeID',$value);
+    $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
-    $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
+    $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
     $cmd->event($value);
 
     if (!is_object($elogic)) {
@@ -175,9 +175,9 @@ if($cmd == "tag")
             $elogicReader->save();
         }
 
-        $cmd = jwiegandCmd::byEqLogicIdCmdName($elogic->getId(),'BadgeID');
+        $cmd = jwiegandCmd::byEqLogicIdCmdName($elogic->getId(),'BadgerID');
         if (!is_object( $cmd )){
-            log::add('jwiegand', 'error', 'Badge : '.$elogic->getName().' commande BadgeID introuvable.');
+            log::add('jwiegand', 'error', 'Badge : '.$elogic->getName().' commande BadgerID introuvable.');
             return false;
         }
         $cmd->event($readername);   

@@ -63,7 +63,7 @@ $('.startIncludeState').on('click', function () {
 
 function changeIncludeState(_state) {
     $.ajax({// fonction permettant de faire de l'ajax
-        type: "POST", // methode de transmission des donnï¿½es au fichier php
+        type: "POST", // methode de transmission des données au fichier php
         url: "plugins/jwiegand/core/ajax/jwiegand.ajax.php", // url du fichier php
         data: {
             action: "changeIncludeState",
@@ -73,7 +73,7 @@ function changeIncludeState(_state) {
         error: function (request, status, error) {
             handleAjaxError(request, status, error);
         },
-        success: function (data) { // si l'appel a bien fonctionnï¿½
+        success: function (data) { // si l'appel a bien fonctionné
             if (data.state != 'ok') {
                 $('#div_alert').showAlert({ message: data.result, level: 'danger' });
                 return;
