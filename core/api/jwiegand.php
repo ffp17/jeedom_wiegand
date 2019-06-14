@@ -192,6 +192,84 @@ if($cmd == "tag")
 
     }   
 }
+if($cmd == "pin")
+{
+	
+	// PIN Présenté au lecteurs 
+	// Recherche parmis les code actif
+	$found = false;
+	foreach( badger::byType('jwiegand',true) as $elogic )
+	 {
+		if ( $elogic->getConfiguration('type')=='code' )
+		{
+			if ( $elogic->getConfiguration('code')==$value )
+			{
+				$found = true;
+				break;
+			}
+		}
 
+	 }
+
+	
+	if ($found==false) {
+
+		// Gestion des codes faux
+		log::add('jwiegand', 'error', 'CODE : '.$value.' faux présenté sur le lecteur :'.$readername);
+	
+		$pincounter = intval($elogicReader->getConfiguration('pincount','0'));
+		$pincounter++;
+
+		$elogicReader->setConfiguration('pincount',strval($pincounter));
+		$elogicReader->setConfiguration('lastuse',$datetime);
+		$elogicReader->save();
+
+		$pinlimit = intval($elogicReader->getConfiguration('pintrylimit','0'));
+		if ( $pincounter >= $pinlimit )
+		{
+			//$elogicReader->setIsEnable(false);
+			//$elogicReader->save();
+			$cmd = badgerCmd::byEqLogicIdCmdName($elogicReader->getId(),'PinTryLimit');
+			if (!is_object( $cmd )){
+				log::add('jwiegand', 'error', 'Reader : '.$elogicReader->getName().' commande PinTryLimit introuvable.');
+				return false;
+			}
+			$cmd->event($datetime);	
+		}
+
+		return true;
+	}
+	else  
+	{
+		// le code  existe process des commandes
+		// Test si code desactivé
+		if ( $elogic->getIsEnable()==false )
+			return true;
+		
+		log::add('jwiegand', 'info', 'Code :'.$elogic->getName().' présenté sur le lecteur : '.$readername);
+		
+		// reset compteur code faux
+		if ($elogicReader->getConfiguration('pincount','0')!='0' )
+		{
+			$elogicReader->setConfiguration('pincount','0');
+			$elogicReader->save();
+		}
+
+		$cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'BadgerID');
+		if (!is_object( $cmd )){
+			log::add('jwiegand', 'error', 'Code : '.$elogic->getName().' commande BadgerID introuvable.');
+			return false;
+		}
+		$cmd->event($readername);	
+
+		$cmd = badgerCmd::byEqLogicIdCmdName($elogic->getId(),'Presentation');
+		if (!is_object( $cmd )){
+			log::add('jwiegand', 'error', 'Code : '.$elogic->getName().' commande Presentation introuvable.');
+			return false;
+		}			
+		$cmd->setCollectDate($datetime);
+		$cmd->event($datetime.' - '.$readername);		
+	}	
+}
 return true;
 ?>
