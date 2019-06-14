@@ -111,7 +111,7 @@ if($cmd == "tag")
     $elogic = jwiegand::byLogicalId($badgeid, 'jwiegand');
     $elogicReader->setConfiguration('BadgeID',$value);
     $elogicReader->save();
-    $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
+    //$cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
     //$cmd->event($value);
 
     if (!is_object($elogic)) {
@@ -127,7 +127,9 @@ if($cmd == "tag")
             $elogicReader->setConfiguration('tagcount',strval($tagcounter));
             $elogicReader->setConfiguration('lastuse',$datetime);
             $elogicReader->save();
-
+        
+            $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'BadgeID');
+        
             $taglimit = intval($elogicReader->getConfiguration('tagtrylimit','0'));
             if ( $tagcounter >= $taglimit )
             {
@@ -138,8 +140,9 @@ if($cmd == "tag")
                     log::add('jwiegand', 'error', 'Reader : '.$elogicReader->getName().' commande TagTryLimit introuvable.');
                     return false;
                 }
-                $cmd->event($datetime); 
+                $cmd->event($datetime);
                 $cmd->event($value);
+            
             }
 
             return true;
