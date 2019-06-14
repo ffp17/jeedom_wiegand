@@ -62,9 +62,9 @@ class jwiegand extends eqLogic {
 			if (!is_object($cmd))
 				$this->createCmdinfo('Presentation',$this->getId(),'Presentation');	
 	
-			 $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'JwiegandID');
+			 $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgeID');
 			if (!is_object($cmd))
-				$this->createCmdinfo('JwiegandID',$this->getId(),'JwiegandID');	
+				$this->createCmdinfo('BadgeID',$this->getId(),'BadgeID');	
 		}
 
 		if ($this->getConfiguration('type')=='code')
