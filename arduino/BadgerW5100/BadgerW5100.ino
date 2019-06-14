@@ -16,7 +16,6 @@ IPAddress server(192,168,10,175);
 
 // arduino static IP
 static byte mymac[] = { 0x42,0x41,0x44,0x47,0x45,0x00 };
-//static byte mymac[] = { 0xDE,0xAD,0xBE,0xEF,0xFE,0x00 };  
 IPAddress ip(192,168,10,47);
 IPAddress subnet(255,255,255,0);
 IPAddress gateway(192,168,10,1);
@@ -80,13 +79,13 @@ void setup () {
 
   // give the ethernet module time to boot up:
   delay(1000);
-  //Serial.println("Start");
+  Serial.println("Start");
   
-  //mymac[5] =  READER_NUMBER;
+  mymac[5] =  READER_NUMBER;
 
-  //if (Ethernet.begin(mymac) == 0) {
-  //  Serial.println("Failed to configure Ethernet using DHCP");
-  //}
+  if (Ethernet.begin(mymac) == 0) {
+    Serial.println("Failed to configure Ethernet using DHCP");
+  }
   
   // print the Ethernet board/shield's IP address:
   Ethernet.begin(mymac, ip, dnServer, gateway, subnet);

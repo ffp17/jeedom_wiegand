@@ -67,12 +67,13 @@ class jwiegand extends eqLogic {
                 $this->createCmdinfo('BadgerID',$this->getId(),'BadgerID'); 
         }
 
+
         if ($this->getConfiguration('type')=='code')
         {   
              $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'ChangePin');
             if (!is_object($cmd))
                 $this->createCmdmessage('ChangePin',$this->getId(),'ChangePin');    
-             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'GetPin');
+			 $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'GetPin');
             if (!is_object($cmd))
                 $this->createCmdinfo('GetPin',$this->getId(),'GetPin'); 
             /*
@@ -85,6 +86,7 @@ class jwiegand extends eqLogic {
             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'TagTryLimit');
             if (!is_object($cmd))
                 $this->createCmdinfo('TagTryLimit',$this->getId(),'TagTryLimit');   
+
 
             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'IDBadge');
             if (!is_object($cmd))
