@@ -26,7 +26,6 @@ String Code;
 byte CodeLen;
 EthernetClient client;
 
-
 static void sendtoJeedom (char * cmd,char * value) {
 
   if (client.connect(server, 80)) {
@@ -65,8 +64,6 @@ static void sendtoJeedom (char * cmd,char * value) {
     // if you didn't get a connection to the server:
     Serial.println("connection failed");
   }
-
- 
 }
 
 void setup () {
@@ -98,8 +95,6 @@ void setup () {
 }
 
 void loop () {
-  
-  
 
 if(wg.available())
   {
@@ -137,8 +132,6 @@ if(wg.available())
       sendtoJeedom("tag",Code.c_str());
       Code="";
       CodeLen=0;
-    } 
-
-  }
-  
+    }
+  } 
 }
