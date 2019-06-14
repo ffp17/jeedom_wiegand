@@ -59,7 +59,7 @@ if (!is_object($elogicReader)) {
     $elogicReader->setConfiguration('tagcount',0);
     if ( $model == 'wiegand2')
         $elogicReader->setConfiguration('pincount',0);
-    $elogicReader->setCategory('security', 1);      
+    $elogicReader->setCategory('security',1);      
     $elogicReader->save();
 
 
@@ -112,7 +112,7 @@ if($cmd == "tag")
     $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
     $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
-    $cmd->event($value);
+    $cmd->event();
 
     if (!is_object($elogic)) {
         
