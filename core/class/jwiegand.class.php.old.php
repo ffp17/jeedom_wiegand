@@ -62,9 +62,9 @@ class jwiegand extends eqLogic {
             if (!is_object($cmd))
                 $this->createCmdinfo('Presentation',$this->getId(),'Presentation'); 
     
-             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgerID');
+             $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgeID');
             if (!is_object($cmd))
-                $this->createCmdinfo('BadgerID',$this->getId(),'BadgerID'); 
+                $this->createCmdinfo('BadgeID',$this->getId(),'BadgeID'); 
         }
 
 
@@ -88,9 +88,9 @@ class jwiegand extends eqLogic {
                 $this->createCmdinfo('TagTryLimit',$this->getId(),'TagTryLimit');   
 
 
-            $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgerID');
+            $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'BadgeID');
             if (!is_object($cmd))
-                $this->createCmdinfo('BadgerID',$this->getId(),'BadgerID');   
+                $this->createCmdinfo('BadgeID',$this->getId(),'BadgeID');   
 
             if ($this->getConfiguration('modelReader','')=='wiegand2' ){
                  $cmd = jwiegandCmd::byEqLogicIdAndLogicalId($this->getId(),'PinTryLimit');
