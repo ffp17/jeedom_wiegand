@@ -112,7 +112,7 @@ if($cmd == "tag")
     $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
     $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
-    $cmd->event();
+    //$cmd->event($value);
 
     if (!is_object($elogic)) {
         
