@@ -32,7 +32,7 @@ static void sendtoJeedom (char * cmd,char * value) {
   if (client.connect(server, 80)) {
     // Make a HTTP request:
 
-    client.print(F("GET /plugins/jwiegand/core/api/jwiegand.php?name=jwiegand"));
+    client.print(F("GET /plugins/jwiegand/core/api/jwiegand.php?name=BADGER"));
     client.print(mymac[5],DEC);
     client.print(F("&ip="));
     client.print(Ethernet.localIP()[0],DEC);
