@@ -114,7 +114,7 @@ if($cmd == "tag")
     $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
     if (strlen($value)<8) {
     }
-  	if (strlen($value)>=8) {
+    if (strlen($value)>=8) {
       	$cmd->event($value);
     }
   	//$jour = date("d-m-y");
