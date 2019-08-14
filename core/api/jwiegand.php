@@ -120,7 +120,7 @@ if($cmd == "tag")
   	//$jour = date("d-m-y");
   	//$heure = date("G:i:s");
     //$cmd->event("Le ".$jour." à ".$heure." Badge n° ".$value);
-  	$cmd->event($value);
+  	//$cmd->event($value);
 
     if (!is_object($elogic)) {
         
