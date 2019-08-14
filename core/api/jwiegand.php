@@ -112,6 +112,11 @@ if($cmd == "tag")
     $elogicReader->setConfiguration('IDBadge',$value);
     $elogicReader->save();
     $cmd = jwiegandCmd::byEqLogicIdCmdName($elogicReader->getId(),'IDBadge');
+    if (strlen($value)<8) {
+    }
+  	if (strlen($value)>=8) {
+      	$cmd->event($value);
+    }
   	//$jour = date("d-m-y");
   	//$heure = date("G:i:s");
     //$cmd->event("Le ".$jour." à ".$heure." Badge n° ".$value);
