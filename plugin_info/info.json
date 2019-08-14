@@ -1,7 +1,7 @@
 {
   "id": "jwiegand",
   "name": "Jwiegand",
-  "description": "plug in de lecture de peripheriques wiegand.",
+  "description": "Plug in de lecture de peripheriques wiegand. Modification du plugin original BADGER",
   "licence": "AGPL",
   "author": "ffp17",
   "require": "3.2",
